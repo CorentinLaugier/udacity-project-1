@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="https://static.thenounproject.com/png/911654-200.png">
+    <title>Sentiment Analysis Web App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        "use strict";
+        function submitForm(oFormElement) {
+            var resultElement = document.getElementById('result');
+            resultElement.style.display = "none";
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                var resultElement = document.getElementById('result');
+                resultElement.style.display = "none";
+                var result = parseFloat(xhr.responseText);
+                console.log(result)
+                result = 0
+                if (result == 0) {
+                    resultElement.className = 'failure';
+                    resultElement.style.display = "block";
+                    resultElement.innerHTML = 'Your review was NEGATIVE!';
+                } else {
+                    resultElement.className = 'success';
+                    resultElement.style.display = "block";
+                    resultElement.innerHTML = 'Your review was POSITIVE!';
+                }
+            }
+            xhr.open(oFormElement.method, oFormElement.action, true);
+            var review = document.getElementById('review');
+            xhr.send(review.value);
+            return false;
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #c0d6df;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .header {
+            background-color: #2d82b7;
+            color: #ffffff;
+            padding: 20px 0px 20px 0px;
+            margin: 0 0 0 0;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        .description {
+            padding: 20px 0px 20px 0px;
+            font-size: 1.5em;
+        }
+
+        .form-sentiment {
+            background-color: #2d82b7;
+            padding: 10px;
+            border-radius: 10px;
+            color: #ffffff;
+            overflow: auto;
+            box-shadow: 4px 5px 9px 1px rgb(0 2 20 / 61%);
+        }
+
+        .submit-form {
+            font-size: 2em;
+            text-align: center;
+            margin-left: 50%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            color: #2d82b7;
+            cursor: pointer;
+            outline: none;
+            background-color: #dbe9ee;
+            transition: 0.1s;
+            box-shadow: 3px 3px 9px 0px rgb(0 2 20 / 61%);
+        }
+
+        .submit-form:hover {
+            transform: scale(1.01);
+            box-shadow: 3px 3px 12px 0px rgb(0 2 20 / 61%);
+        }
+
+        .submit-form:active {
+            transform: scale(0.98);
+            box-shadow: 3px 3px 6px 0px rgb(0 2 20 / 61%);
+        }
+
+        .submit-form:focus {
+            outline: none;
+        }
+
+        .success {
+            font-size: 1.5em;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            color: #02520f;
+            outline: none;
+            background-color: #2db772;
+            box-shadow: 3px 2px 9px 0px rgb(0 2 20 / 61%);
+        }
+
+        .failure{
+            font-size: 1.5em;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            color: #470606;
+            outline: none;
+            background-color: #b72d2d;
+            box-shadow: 3px 2px 9px 0px rgb(0 2 20 / 61%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">Movie Review Sentiment Analysis</div>
+    <div class="container">
+
+        <div class="description">
+            <p>Enter your review below and click submit to find out if the movie review is positive of negative.</p>
+        </div>
+        <form method="POST" action="https://rx3akj6rw5.execute-api.us-east-1.amazonaws.com/prod"
+            onsubmit="return submitForm(this);" class="form-sentiment">
+            <!-- HERE IS WHERE YOU NEED TO ENTER THE API URL -->
+            <div class="form-group">
+                <label for="review">Review:</label>
+                <textarea class="form-control" rows="5" id="review"
+                    placeholder="Please write your review here."></textarea>
+            </div>
+            <button type="submit" class="submit-form">Submit</button>
+        </form>
+        <h1 class="success" style = "display:none;" id="result"></h1>
+    </div>
+</body>
+
+</html>
