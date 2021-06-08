@@ -20,8 +20,7 @@
                 var resultElement = document.getElementById('result');
                 resultElement.style.display = "none";
                 var result = parseFloat(xhr.responseText);
-                console.log(result)
-                result = 0
+                console.log(result);
                 if (result == 0) {
                     resultElement.className = 'failure';
                     resultElement.style.display = "block";
@@ -131,7 +130,7 @@
         <div class="description">
             <p>Enter your review below and click submit to find out if the movie review is positive of negative.</p>
         </div>
-        <form method="POST" action="https://rx3akj6rw5.execute-api.us-east-1.amazonaws.com/prod"
+        <form method="POST" action=" https://llhxrhrqg0.execute-api.us-east-1.amazonaws.com/prod"
             onsubmit="return submitForm(this);" class="form-sentiment">
             <!-- HERE IS WHERE YOU NEED TO ENTER THE API URL -->
             <div class="form-group">
